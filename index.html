@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#0a0a0a">
@@ -15,55 +15,28 @@
 </head>
 <body>
   <div id="app">
-    <!-- Nav -->
-    <nav id="nav">
-      <div class="nav-title">LEAN MASS UP</div>
-      <button id="btn-history" class="nav-btn" onclick="showHistory()">&#128202;</button>
-    </nav>
-
-    <!-- Day Selector -->
-    <div id="day-selector">
-      <button class="day-tab active" data-day="A" onclick="selectDay('A')">
-        <span class="day-label">A</span>
-        <span class="day-desc">Chest+Tri</span>
-      </button>
-      <button class="day-tab" data-day="B" onclick="selectDay('B')">
-        <span class="day-label">B</span>
-        <span class="day-desc">Back+Bi</span>
-      </button>
-      <button class="day-tab" data-day="C" onclick="selectDay('C')">
-        <span class="day-label">C</span>
-        <span class="day-desc">Shoulder</span>
-      </button>
+    <div class="top">
+      <div class="top-title">LEAN MASS UP</div>
+      <button class="top-btn" onclick="showHistory()">&#9776;</button>
     </div>
-
-    <!-- Workout Content -->
-    <div id="workout-content"></div>
-
-    <!-- Finish Button -->
-    <div id="finish-area" style="display:none;">
-      <button id="btn-finish" onclick="finishWorkout()">FINISH</button>
+    <div class="tabs">
+      <div class="tab on" data-d="A" onclick="pick('A')"><b>A</b><small>Chest+Tri</small></div>
+      <div class="tab" data-d="B" onclick="pick('B')"><b>B</b><small>Back+Bi</small></div>
+      <div class="tab" data-d="C" onclick="pick('C')"><b>C</b><small>Shoulder</small></div>
     </div>
-
-    <!-- History Modal -->
-    <div id="history-modal" class="modal hidden">
-      <div class="modal-header">
-        <h2>History</h2>
-        <button class="modal-close" onclick="closeHistory()">&times;</button>
-      </div>
-      <div id="history-content"></div>
+    <div id="main"></div>
+    <div class="finish" id="finish" style="display:none">
+      <button class="finish-btn" onclick="finish()">FINISH WORKOUT</button>
     </div>
-
-    <!-- Exercise Detail Modal -->
-    <div id="detail-modal" class="modal hidden">
-      <div class="modal-header">
-        <h2 id="detail-title"></h2>
-        <button class="modal-close" onclick="closeDetail()">&times;</button>
-      </div>
-      <div id="detail-content"></div>
+    <div id="hist-modal" class="modal hide">
+      <div class="m-head"><h2>History</h2><button class="m-close" onclick="closeHist()">&times;</button></div>
+      <div id="hist-body"></div>
+    </div>
+    <div id="det-modal" class="modal hide">
+      <div class="m-head"><h2 id="det-title"></h2><button class="m-close" onclick="closeDet()">&times;</button></div>
+      <div class="d-body" id="det-body"></div>
     </div>
   </div>
-
   <script src="app.js"></script>
 </body>
 </html>

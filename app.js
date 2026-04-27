@@ -1,692 +1,420 @@
 // ── Routine Data ──
-const ROUTINE = {
+const R = {
   A: {
-    name: "Day A",
     title: "Chest + Triceps",
     sections: [
-      {
-        title: "CHEST",
-        exercises: [
-          {
-            id: "bench",
-            name: "Barbell Bench Press",
-            nameKr: "바벨 벤치프레스",
-            sets: 4,
-            reps: "5-6",
-            rpe: [8, 8, 9, 10],
-            rest: "3min",
-            tempo: "2-0-1-0",
-            tips: [
-              "가슴 전체 근력의 베이스.",
-              "마지막 세트는 AMRAP (최소 5개).",
-              "AMRAP 8개 이상 → 다음 주 2.5kg 증량.",
-              "AMRAP 6-7개 → 유지. 5개 미만 → 2.5kg 감량."
-            ],
-            warmup: "바만x15 → 40%x10 → 60%x6 → 80%x3"
-          },
-          {
-            id: "incline_db",
-            name: "Incline DB Press",
-            nameKr: "인클라인 덤벨프레스 (30도)",
-            sets: 4,
-            reps: "8-10",
-            rpe: [8, 8, 9, 10],
-            rest: "90s",
-            tempo: "3-0-1-1",
-            tips: [
-              "상부 가슴 스트레치 강조.",
-              "내리기 3초 필수.",
-              "4세트 합산 38개 이상 → 2kg 증량."
-            ]
-          },
-          {
-            id: "cable_fly",
-            name: "Cable Fly",
-            nameKr: "케이블 플라이 (중간 높이)",
-            sets: 3,
-            reps: "12-15",
-            rpe: [8, 9, 10],
-            rest: "60s",
-            tempo: "2-0-1-2",
-            tips: [
-              "가슴 안쪽 수축 + 스트레치.",
-              "수축 시 2초 홀드.",
-              "무게보다 수축감이 핵심."
-            ]
-          },
-          {
-            id: "machine_chest",
-            name: "Machine Chest Press",
-            nameKr: "머신 체스트프레스",
-            sets: 3,
-            reps: "10-12",
-            rpe: [9, 9, 10],
-            rest: "60s",
-            tempo: "2-0-1-1",
-            tips: [
-              "벤치로 지친 후 안전하게 추가 볼륨.",
-              "머신이니까 실패까지 밀어도 OK."
-            ]
-          }
-        ]
-      },
-      {
-        title: "TRICEPS",
-        exercises: [
-          {
-            id: "cgbp",
-            name: "Close-Grip Bench Press",
-            nameKr: "클로즈그립 벤치프레스",
-            sets: 3,
-            reps: "8-10",
-            rpe: [8, 9, 10],
-            rest: "90s",
-            tempo: "2-0-1-0",
-            tips: [
-              "어깨너비보다 약간 좁게 그립.",
-              "삼두 전체 + 가슴 하부 동원.",
-              "팔꿈치가 옆으로 벌어지면 그립 너무 좁은 것."
-            ]
-          },
-          {
-            id: "pushdown",
-            name: "Cable Pushdown",
-            nameKr: "케이블 푸시다운 (스트레이트바)",
-            sets: 3,
-            reps: "10-12",
-            rpe: [8, 9, 10],
-            rest: "60s",
-            tempo: "2-0-1-1",
-            tips: [
-              "삼두 외측두 집중.",
-              "마지막 세트 드롭세트: 실패→무게 줄여서 실패→또 줄여서 실패.",
-              "팔꿈치 고정. 어깨 개입 X."
-            ]
-          }
-        ]
-      }
+      { title: "CHEST", exercises: [
+        { id:"bench", kr:"바벨 벤치프레스", sets:4, reps:"5-6", rpe:[8,8,9,10], rest:"3m", tempo:"2-0-1-0", type:"str", inc:2.5,
+          tips:["마지막 세트 AMRAP (최소5개)","AMRAP 8개+ → 다음주 +2.5kg","6-7개 → 유지 / 5개 미만 → -2.5kg"],
+          warmup:"빈바x15 → 40%x10 → 60%x6 → 80%x3" },
+        { id:"inc_db", kr:"인클라인 덤벨프레스 (30도)", sets:4, reps:"8-10", rpe:[8,8,9,10], rest:"90s", tempo:"3-0-1-1", type:"hyp", inc:2,
+          tips:["상부 가슴 스트레치 강조","내리기 3초 필수","4세트 합산 38개+ → +2kg"] },
+        { id:"fly", kr:"케이블 플라이", sets:3, reps:"12-15", rpe:[8,9,10], rest:"60s", tempo:"2-0-1-2", type:"iso", inc:1,
+          tips:["수축 시 2초 홀드","무게보다 수축감 우선"] },
+        { id:"m_chest", kr:"머신 체스트프레스", sets:3, reps:"10-12", rpe:[9,9,10], rest:"60s", tempo:"2-0-1-1", type:"hyp", inc:2.5,
+          tips:["벤치 후 안전하게 추가 볼륨","머신이니 실패까지 OK"] },
+      ]},
+      { title: "TRICEPS", exercises: [
+        { id:"cgbp", kr:"클로즈그립 벤치프레스", sets:3, reps:"8-10", rpe:[8,9,10], rest:"90s", tempo:"2-0-1-0", type:"hyp", inc:2.5,
+          tips:["어깨너비보다 약간 좁게","삼두 전체 + 가슴 하부","팔꿈치 벌어지면 그립 너무 좁음"] },
+        { id:"push", kr:"케이블 푸시다운", sets:3, reps:"10-12", rpe:[8,9,10], rest:"60s", tempo:"2-0-1-1", type:"iso", inc:1,
+          tips:["삼두 외측두 집중","마지막세트 드롭: 실패→줄여서실패→또줄여서실패","팔꿈치 고정"] },
+      ]}
     ]
   },
   B: {
-    name: "Day B",
     title: "Back + Biceps",
     sections: [
-      {
-        title: "BACK",
-        exercises: [
-          {
-            id: "pendlay",
-            name: "Pendlay Row",
-            nameKr: "바벨 로우 (펜들레이)",
-            sets: 4,
-            reps: "5-6",
-            rpe: [8, 8, 9, 10],
-            rest: "3min",
-            tempo: "1-1-1-0",
-            tips: [
-              "등 두께 근력 베이스.",
-              "바닥에서 매 rep 정지 (반동 제거).",
-              "상체 45도 이상 올라가면 무게 과함 → 5kg 내림.",
-              "AMRAP 8개 이상 → 다음 주 2.5kg 증량."
-            ],
-            warmup: "40%x10 → 60%x6 → 80%x3"
-          },
-          {
-            id: "lat_pull",
-            name: "Lat Pulldown (Wide)",
-            nameKr: "랫풀다운 (와이드 오버그립)",
-            sets: 4,
-            reps: "8-10",
-            rpe: [8, 8, 9, 10],
-            rest: "90s",
-            tempo: "3-0-1-2",
-            tips: [
-              "등 넓이 (광배근 상부).",
-              "올릴 때 3초 천천히.",
-              "수축 시 2초 홀드.",
-              "4세트 합산 38개 이상 → 2.5kg 증량."
-            ]
-          },
-          {
-            id: "seated_row",
-            name: "Seated Cable Row",
-            nameKr: "케이블 시티드 로우 (V바)",
-            sets: 3,
-            reps: "10-12",
-            rpe: [8, 9, 10],
-            rest: "90s",
-            tempo: "2-0-1-2",
-            tips: [
-              "등 두께 (중부 승모+능형근).",
-              "당기고 2초 쥐어짜기.",
-              "몸이 앞뒤로 흔들리면 무게 과함."
-            ]
-          },
-          {
-            id: "machine_row",
-            name: "Machine Row / 1-Arm DB Row",
-            nameKr: "머신 로우 or 원암 덤벨 로우",
-            sets: 3,
-            reps: "10-12",
-            rpe: [9, 9, 10],
-            rest: "60s",
-            tempo: "2-0-1-2",
-            tips: [
-              "좌우 불균형 교정.",
-              "마무리 볼륨, 수축 집중."
-            ]
-          }
-        ]
-      },
-      {
-        title: "BICEPS",
-        exercises: [
-          {
-            id: "barbell_curl",
-            name: "Barbell Curl",
-            nameKr: "바벨컬 (EZ바 or 스트레이트)",
-            sets: 3,
-            reps: "8-10",
-            rpe: [8, 9, 10],
-            rest: "60s",
-            tempo: "2-0-1-1",
-            tips: [
-              "이두 전체 볼륨.",
-              "치팅 절대 금지. 반동 나오면 무게 내려.",
-              "팔꿈치 몸 옆에 고정."
-            ]
-          },
-          {
-            id: "hammer_curl",
-            name: "Hammer Curl",
-            nameKr: "해머컬 (덤벨)",
-            sets: 3,
-            reps: "12-15",
-            rpe: [8, 9, 10],
-            rest: "60s",
-            tempo: "2-0-1-1",
-            tips: [
-              "상완근 + 전완근 → 팔 두께.",
-              "마지막 세트 드롭세트: 실패→무게 줄여서 실패→또 줄여서 실패.",
-              "전완이 터질 것 같으면 잘 하고 있는 거."
-            ]
-          }
-        ]
-      }
+      { title: "BACK", exercises: [
+        { id:"row", kr:"바벨 로우 (펜들레이)", sets:4, reps:"5-6", rpe:[8,8,9,10], rest:"3m", tempo:"1-1-1-0", type:"str", inc:2.5,
+          tips:["바닥에서 매 rep 정지","상체 45도 이상 → 무게 과함 → -5kg","AMRAP 8개+ → +2.5kg"],
+          warmup:"40%x10 → 60%x6 → 80%x3" },
+        { id:"lat", kr:"랫풀다운 (와이드)", sets:4, reps:"8-10", rpe:[8,8,9,10], rest:"90s", tempo:"3-0-1-2", type:"hyp", inc:2.5,
+          tips:["등 넓이 (광배근 상부)","올릴 때 3초","수축 시 2초 홀드"] },
+        { id:"s_row", kr:"케이블 시티드 로우 (V바)", sets:3, reps:"10-12", rpe:[8,9,10], rest:"90s", tempo:"2-0-1-2", type:"hyp", inc:2.5,
+          tips:["등 두께 (승모+능형근)","당기고 2초 쥐어짜기","흔들리면 무게 과함"] },
+        { id:"m_row", kr:"머신로우 / 원암덤벨로우", sets:3, reps:"10-12", rpe:[9,9,10], rest:"60s", tempo:"2-0-1-2", type:"hyp", inc:2,
+          tips:["좌우 불균형 교정","마무리 수축 집중"] },
+      ]},
+      { title: "BICEPS", exercises: [
+        { id:"curl", kr:"바벨컬 (EZ/스트레이트)", sets:3, reps:"8-10", rpe:[8,9,10], rest:"60s", tempo:"2-0-1-1", type:"hyp", inc:2.5,
+          tips:["치팅 절대 금지","반동 나오면 무게 내려","팔꿈치 몸 옆 고정"] },
+        { id:"ham", kr:"해머컬 (덤벨)", sets:3, reps:"12-15", rpe:[8,9,10], rest:"60s", tempo:"2-0-1-1", type:"iso", inc:1,
+          tips:["상완근+전완근 → 팔 두께","마지막세트 드롭: 실패→줄여서실패→또줄여서실패"] },
+      ]}
     ]
   },
   C: {
-    name: "Day C",
-    title: "Shoulder + Accessories",
+    title: "Shoulder + Acc",
     sections: [
-      {
-        title: "SHOULDER",
-        exercises: [
-          {
-            id: "db_ohp",
-            name: "DB Shoulder Press",
-            nameKr: "덤벨 숄더프레스 (시티드)",
-            sets: 4,
-            reps: "8-10",
-            rpe: [8, 8, 9, 10],
-            rest: "2min",
-            tempo: "2-0-1-1",
-            tips: [
-              "전면+측면 삼각근 메인 종목.",
-              "4세트 합산 38개 이상 → 2kg 증량.",
-              "허리 아치 과하면 무게 과함."
-            ]
-          },
-          {
-            id: "lateral_raise",
-            name: "Lateral Raise",
-            nameKr: "사이드 레터럴레이즈 (덤벨)",
-            sets: 4,
-            reps: "12-15",
-            rpe: [8, 9, 9, 10],
-            rest: "60s",
-            tempo: "1-0-1-1",
-            tips: [
-              "어깨 넓이 핵심 = 측면삼각근.",
-              "승모근 올라오면 무게 과함 → 2kg 내려.",
-              "새끼손가락이 위를 향하게 (약간 쏟는 느낌).",
-              "마지막 세트 드롭세트: 실패→줄여서 실패→또 줄여서 실패.",
-              "8kg 제대로 > 14kg 치팅."
-            ]
-          },
-          {
-            id: "rear_delt",
-            name: "Rear Delt Machine",
-            nameKr: "리어델트 머신 (펙덱 리버스)",
-            sets: 3,
-            reps: "12-15",
-            rpe: [8, 9, 10],
-            rest: "60s",
-            tempo: "1-0-1-2",
-            tips: [
-              "후면삼각근.",
-              "수축 시 2초 쥐어짜기."
-            ]
-          },
-          {
-            id: "facepull",
-            name: "Face Pull",
-            nameKr: "페이스풀 (로프)",
-            sets: 3,
-            reps: "15-20",
-            rpe: [8, 9, 9],
-            rest: "45s",
-            tempo: "1-0-1-2",
-            tips: [
-              "후면삼각근 + 외회전 → 어깨 건강.",
-              "가볍게, 수축 2초.",
-              "로프를 귀 옆까지 당기기."
-            ]
-          },
-          {
-            id: "machine_ohp",
-            name: "Machine Shoulder Press",
-            nameKr: "머신 숄더프레스",
-            sets: 3,
-            reps: "12-15",
-            rpe: [9, 9, 10],
-            rest: "60s",
-            tempo: "2-0-1-1",
-            tips: [
-              "전면삼각근 마무리.",
-              "머신이니까 실패까지 OK."
-            ]
-          }
-        ]
-      },
-      {
-        title: "ACCESSORIES",
-        exercises: [
-          {
-            id: "shrug",
-            name: "DB Shrug",
-            nameKr: "덤벨 쉬러그",
-            sets: 3,
-            reps: "12-15",
-            rpe: [8, 9, 9],
-            rest: "60s",
-            tempo: "1-0-1-2",
-            tips: [
-              "승모근 상부.",
-              "2초 홀드 필수.",
-              "귀에 어깨 갖다 붙이는 느낌."
-            ]
-          },
-          {
-            id: "incline_db_light",
-            name: "Incline DB Press (Light)",
-            nameKr: "인클라인 덤벨프레스 (가볍게)",
-            sets: 3,
-            reps: "12-15",
-            rpe: [8, 8, 9],
-            rest: "60s",
-            tempo: "3-0-1-1",
-            tips: [
-              "상부 가슴 빈도 추가 (주 2회 자극).",
-              "Day A보다 가볍게. 여기서 무리하면 월요일에 영향.",
-              "RPE 8-9 유지."
-            ]
-          }
-        ]
-      }
+      { title: "SHOULDER", exercises: [
+        { id:"ohp", kr:"덤벨 숄더프레스 (시티드)", sets:4, reps:"8-10", rpe:[8,8,9,10], rest:"2m", tempo:"2-0-1-1", type:"hyp", inc:2,
+          tips:["전면+측면 삼각근 메인","4세트 합산 38개+ → +2kg","허리 아치 과하면 무게 과함"] },
+        { id:"lat_r", kr:"사이드 레터럴레이즈", sets:4, reps:"12-15", rpe:[8,9,9,10], rest:"60s", tempo:"1-0-1-1", type:"iso", inc:1,
+          tips:["어깨 넓이 핵심","승모근 올라오면 -2kg","마지막세트 드롭: 실패→줄여서→또줄여서","8kg 제대로 > 14kg 치팅"] },
+        { id:"rear", kr:"리어델트 머신", sets:3, reps:"12-15", rpe:[8,9,10], rest:"60s", tempo:"1-0-1-2", type:"iso", inc:1,
+          tips:["후면삼각근","수축 2초 쥐어짜기"] },
+        { id:"face", kr:"페이스풀 (로프)", sets:3, reps:"15-20", rpe:[8,9,9], rest:"45s", tempo:"1-0-1-2", type:"iso", inc:1,
+          tips:["후면삼각근+외회전=어깨건강","가볍게, 수축 2초","로프를 귀 옆까지"] },
+        { id:"m_ohp", kr:"머신 숄더프레스", sets:3, reps:"12-15", rpe:[9,9,10], rest:"60s", tempo:"2-0-1-1", type:"hyp", inc:2.5,
+          tips:["전면삼각근 마무리","머신이니 실패까지 OK"] },
+      ]},
+      { title: "ACCESSORIES", exercises: [
+        { id:"shrug", kr:"덤벨 쉬러그", sets:3, reps:"12-15", rpe:[8,9,9], rest:"60s", tempo:"1-0-1-2", type:"iso", inc:2,
+          tips:["승모근 상부","2초 홀드 필수","귀에 어깨 붙이는 느낌"] },
+        { id:"inc_l", kr:"인클라인 덤벨프레스 (가볍게)", sets:3, reps:"12-15", rpe:[8,8,9], rest:"60s", tempo:"3-0-1-1", type:"iso", inc:2,
+          tips:["상부 가슴 주2회 자극","Day A보다 가볍게","RPE 8-9 유지"] },
+      ]}
     ]
   }
 };
 
 // ── State ──
-let currentDay = "A";
-let workoutState = {}; // { exerciseId: { sets: [{kg:'', reps:'', done:false}] } }
+let day = "A";
+let st = {};
+let openCards = {};
 
 // ── Init ──
-document.addEventListener("DOMContentLoaded", () => {
-  loadTodayState();
-  renderWorkout();
-});
+document.addEventListener("DOMContentLoaded", () => { load(); render(); });
 
-function selectDay(day) {
-  currentDay = day;
-  document.querySelectorAll(".day-tab").forEach((t) => {
-    t.classList.toggle("active", t.dataset.day === day);
-  });
-  loadTodayState();
-  renderWorkout();
+function pick(d) {
+  day = d;
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.d === d));
+  openCards = {};
+  load();
+  render();
   window.scrollTo(0, 0);
 }
 
-// ── Load/Save State (per day, per date) ──
-function getTodayKey() {
+// ── Keys ──
+function todayKey() {
   const d = new Date();
-  return `workout_${currentDay}_${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  return `w_${day}_${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
 
-function loadTodayState() {
-  const saved = localStorage.getItem(getTodayKey());
-  if (saved) {
-    workoutState = JSON.parse(saved);
-  } else {
-    workoutState = {};
-    const routine = ROUTINE[currentDay];
-    routine.sections.forEach((sec) => {
-      sec.exercises.forEach((ex) => {
-        workoutState[ex.id] = {
-          sets: Array.from({ length: ex.sets }, () => ({
-            kg: "",
-            reps: "",
-            done: false,
-          })),
-        };
-      });
-    });
-  }
-}
-
-function saveState() {
-  localStorage.setItem(getTodayKey(), JSON.stringify(workoutState));
-  updateProgress();
-}
-
-// ── Render Workout ──
-function renderWorkout() {
-  const routine = ROUTINE[currentDay];
-  const container = document.getElementById("workout-content");
-  let html = "";
-
-  // Progress bar
-  html += `<div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>`;
-  html += `<div class="progress-text" id="progress-text"></div>`;
-
-  routine.sections.forEach((sec) => {
-    html += `<div class="section-title">${sec.title}</div>`;
-
-    sec.exercises.forEach((ex) => {
-      const state = workoutState[ex.id];
-      const allDone = state && state.sets.every((s) => s.done);
-      const doneCount = state ? state.sets.filter((s) => s.done).length : 0;
-
-      html += `<div class="exercise-card ${allDone ? "completed" : ""}" id="card-${ex.id}">`;
-      html += `<div class="exercise-header" onclick="toggleDetail('${ex.id}')">`;
-      html += `<div>`;
-      html += `<div class="exercise-name">${ex.nameKr}</div>`;
-      html += `<div class="exercise-meta">${ex.sets}x${ex.reps} / ${ex.rest} / ${ex.tempo}</div>`;
-      html += `</div>`;
-      html += `<span class="exercise-badge ${allDone ? "done" : ""}">${allDone ? "DONE" : doneCount + "/" + ex.sets}</span>`;
-      html += `</div>`;
-
-      // Sets
-      html += `<div class="sets-area">`;
-
-      // Header row
-      html += `<div class="set-header">`;
-      html += `<div class="input-label" style="flex:1">KG</div>`;
-      html += `<div class="input-label" style="flex:1">REPS</div>`;
-      html += `<div style="width:36px"></div>`;
-      html += `</div>`;
-
-      state.sets.forEach((s, i) => {
-        const rpeVal = ex.rpe[i];
-        const rpeLabel =
-          rpeVal === 10
-            ? "RPE10 FAIL"
-            : `RPE ${rpeVal}`;
-        html += `<div class="set-row">`;
-        html += `<div class="set-label">S${i + 1}</div>`;
-        html += `<input class="set-input" type="number" inputmode="decimal" placeholder="kg" value="${s.kg}" onchange="updateSet('${ex.id}',${i},'kg',this.value)" onfocus="this.select()">`;
-        html += `<input class="set-input" type="number" inputmode="numeric" placeholder="reps" value="${s.reps}" onchange="updateSet('${ex.id}',${i},'reps',this.value)" onfocus="this.select()">`;
-        html += `<span class="rpe-tag">${rpeLabel}</span>`;
-        html += `<button class="set-check ${s.done ? "checked" : ""}" onclick="toggleSet('${ex.id}',${i})">${s.done ? "\u2713" : ""}</button>`;
-        html += `</div>`;
-      });
-
-      html += `</div></div>`;
-    });
+function load() {
+  const s = localStorage.getItem(todayKey());
+  if (s) { st = JSON.parse(s); return; }
+  st = {};
+  forEachEx((ex) => {
+    const rec = getRecommendation(ex.id, ex);
+    st[ex.id] = {
+      sets: Array.from({length: ex.sets}, (_, i) => ({
+        kg: rec ? String(rec.kg) : "",
+        reps: "",
+        done: false
+      }))
+    };
   });
-
-  container.innerHTML = html;
-  document.getElementById("finish-area").style.display = "flex";
-  updateProgress();
 }
 
-// ── Set Operations ──
-function updateSet(exId, setIdx, field, value) {
-  workoutState[exId].sets[setIdx][field] = value;
-  saveState();
+function save() {
+  localStorage.setItem(todayKey(), JSON.stringify(st));
 }
 
-function toggleSet(exId, setIdx) {
-  const set = workoutState[exId].sets[setIdx];
-  set.done = !set.done;
-
-  // Auto-fill kg from previous set if empty
-  if (set.done && !set.kg && setIdx > 0) {
-    const prev = workoutState[exId].sets[setIdx - 1];
-    if (prev.kg) set.kg = prev.kg;
-  }
-
-  saveState();
-  renderWorkout();
+function forEachEx(fn) {
+  R[day].sections.forEach(s => s.exercises.forEach(fn));
 }
 
-function updateProgress() {
-  let total = 0;
-  let done = 0;
-  const routine = ROUTINE[currentDay];
-  routine.sections.forEach((sec) => {
-    sec.exercises.forEach((ex) => {
-      const state = workoutState[ex.id];
-      if (state) {
-        total += state.sets.length;
-        done += state.sets.filter((s) => s.done).length;
-      }
-    });
-  });
-
-  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-  const fill = document.getElementById("progress-fill");
-  const text = document.getElementById("progress-text");
-  if (fill) fill.style.width = pct + "%";
-  if (text) text.textContent = `${done}/${total} sets (${pct}%)`;
-}
-
-// ── Detail Modal ──
-function toggleDetail(exId) {
-  const routine = ROUTINE[currentDay];
-  let exercise = null;
-  routine.sections.forEach((sec) => {
-    sec.exercises.forEach((ex) => {
-      if (ex.id === exId) exercise = ex;
-    });
-  });
-  if (!exercise) return;
-
-  const modal = document.getElementById("detail-modal");
-  document.getElementById("detail-title").textContent = exercise.nameKr;
-
-  let html = "";
-
-  // Info table
-  html += `<div class="detail-section">`;
-  html += `<h3>INFO</h3>`;
-  html += `<table class="detail-table">`;
-  html += `<tr><th>Sets x Reps</th><td>${exercise.sets} x ${exercise.reps}</td></tr>`;
-  html += `<tr><th>Rest</th><td>${exercise.rest}</td></tr>`;
-  html += `<tr><th>Tempo</th><td>${exercise.tempo} (down-pause-up-squeeze)</td></tr>`;
-  html += `<tr><th>RPE</th><td>${exercise.rpe.join(" → ")}</td></tr>`;
-  html += `</table></div>`;
-
-  if (exercise.warmup) {
-    html += `<div class="detail-section"><h3>WARM-UP</h3><p>${exercise.warmup}</p></div>`;
-  }
-
-  // Tips
-  html += `<div class="detail-section"><h3>TIPS</h3><ul>`;
-  exercise.tips.forEach((t) => {
-    html += `<li>${t}</li>`;
-  });
-  html += `</ul></div>`;
-
-  // Previous records
-  const prevRecords = getPreviousRecords(exId);
-  if (prevRecords.length > 0) {
-    html += `<div class="detail-section"><h3>PREVIOUS RECORDS</h3>`;
-    html += `<table class="detail-table"><tr><th>Date</th><th>Sets</th></tr>`;
-    prevRecords.forEach((r) => {
-      html += `<tr><td>${r.date}</td><td>${r.summary}</td></tr>`;
-    });
-    html += `</table></div>`;
-  }
-
-  document.getElementById("detail-content").innerHTML = html;
-  modal.classList.remove("hidden");
-}
-
-function closeDetail() {
-  document.getElementById("detail-modal").classList.add("hidden");
-}
-
-function getPreviousRecords(exId) {
-  const records = [];
+// ── Recommendation Engine ──
+function getRecommendation(exId, ex) {
+  // Find most recent completed workout for this exercise
   const keys = Object.keys(localStorage)
-    .filter((k) => k.startsWith("workout_"))
-    .sort()
-    .reverse();
+    .filter(k => k.startsWith(`w_${day}_`))
+    .sort().reverse();
 
-  const todayKey = getTodayKey();
-
+  const tk = todayKey();
   for (const key of keys) {
-    if (key === todayKey) continue;
-    if (records.length >= 5) break;
-
+    if (key === tk) continue;
     try {
       const data = JSON.parse(localStorage.getItem(key));
-      if (data[exId]) {
-        const sets = data[exId].sets.filter((s) => s.done);
-        if (sets.length > 0) {
-          const dateStr = key.split("_").slice(2).join("-");
-          const summary = sets.map((s) => `${s.kg || "?"}kg x ${s.reps || "?"}`).join(", ");
-          records.push({ date: dateStr, summary });
+      if (!data[exId]) continue;
+      const sets = data[exId].sets.filter(s => s.done && s.kg);
+      if (sets.length === 0) continue;
+
+      const lastKg = parseFloat(sets[0].kg);
+      const totalReps = sets.reduce((sum, s) => sum + (parseInt(s.reps) || 0), 0);
+      const lastSetReps = parseInt(sets[sets.length - 1].reps) || 0;
+      const repRange = ex.reps.split("-").map(Number);
+      const upper = repRange[1] || repRange[0];
+
+      let recKg = lastKg;
+      let reason = "";
+
+      if (ex.type === "str") {
+        // Strength: AMRAP based
+        if (lastSetReps >= 8) {
+          recKg = lastKg + ex.inc;
+          reason = `AMRAP ${lastSetReps}reps -> +${ex.inc}kg`;
+        } else if (lastSetReps >= upper) {
+          reason = `${lastKg}kg / AMRAP ${lastSetReps} -> Maintain`;
+        } else {
+          recKg = lastKg - ex.inc;
+          reason = `AMRAP ${lastSetReps}reps -> -${ex.inc}kg`;
+        }
+      } else if (ex.type === "hyp") {
+        // Hypertrophy: total reps based
+        const threshold = upper * ex.sets;
+        if (totalReps >= threshold) {
+          recKg = lastKg + ex.inc;
+          reason = `Total ${totalReps}/${threshold}reps -> +${ex.inc}kg`;
+        } else {
+          reason = `Total ${totalReps}/${threshold}reps -> Maintain`;
+        }
+      } else {
+        // Isolation: if all sets hit upper range
+        const allHitUpper = sets.every(s => (parseInt(s.reps) || 0) >= upper);
+        if (allHitUpper) {
+          recKg = lastKg + ex.inc;
+          reason = `All sets ${upper}reps+ -> +${ex.inc}kg`;
+        } else {
+          reason = `Maintain ${lastKg}kg`;
         }
       }
-    } catch (e) { /* skip */ }
+
+      return { kg: Math.max(0, recKg), reason, lastKg, totalReps, lastSetReps };
+    } catch(e) { continue; }
   }
-  return records;
+  return null;
 }
 
-// ── Finish Workout ──
-function finishWorkout() {
-  const routine = ROUTINE[currentDay];
-  let total = 0;
-  let done = 0;
-  routine.sections.forEach((sec) => {
-    sec.exercises.forEach((ex) => {
-      const state = workoutState[ex.id];
-      if (state) {
-        total += state.sets.length;
-        done += state.sets.filter((s) => s.done).length;
+// ── Render ──
+function render() {
+  const routine = R[day];
+  let h = "";
+
+  // Progress
+  let total = 0, done = 0;
+  forEachEx(ex => {
+    const s = st[ex.id];
+    if (s) { total += s.sets.length; done += s.sets.filter(x => x.done).length; }
+  });
+  const pct = total ? Math.round(done / total * 100) : 0;
+  h += `<div class="prog"><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div><span class="prog-txt">${done}/${total} (${pct}%)</span></div>`;
+
+  routine.sections.forEach(sec => {
+    h += `<div class="sec-title">${sec.title}</div>`;
+    sec.exercises.forEach(ex => {
+      const s = st[ex.id];
+      const allDone = s && s.sets.every(x => x.done);
+      const cnt = s ? s.sets.filter(x => x.done).length : 0;
+      const isOpen = openCards[ex.id];
+      const rec = getRecommendation(ex.id, ex);
+
+      h += `<div class="ex${allDone ? " done" : ""}${isOpen ? " open" : ""}" id="c-${ex.id}">`;
+
+      // Header
+      h += `<div class="ex-head" onclick="toggle('${ex.id}')">`;
+      h += `<div><div class="ex-name">${ex.kr}</div>`;
+      h += `<div class="ex-sub">${ex.sets}x${ex.reps} / ${ex.rest} / ${ex.tempo}</div></div>`;
+      h += `<div class="ex-info">`;
+      if (rec && !allDone) {
+        h += `<span style="font-size:10px;color:var(--blue);font-weight:600">${rec.kg}kg</span>`;
       }
+      h += `<span class="ex-badge${allDone ? " done" : ""}">${allDone ? "DONE" : cnt+"/"+ex.sets}</span>`;
+      h += `<span class="ex-arrow">&#9660;</span>`;
+      h += `</div></div>`;
+
+      // Sets (collapsible)
+      h += `<div class="sets">`;
+
+      // Recommendation banner
+      if (rec) {
+        h += `<div class="rec-banner"><b>&#8593;</b> ${rec.reason}</div>`;
+      }
+
+      // Header
+      h += `<div class="set-head"><span></span><span>KG</span><span>REPS</span><span>RPE</span><span></span></div>`;
+
+      s.sets.forEach((set, i) => {
+        const rpeV = ex.rpe[i];
+        const rpeClass = rpeV === 10 ? "rpe rpe10" : "rpe";
+        const rpeText = rpeV === 10 ? "MAX" : "RPE"+rpeV;
+        const placeholder = rec ? rec.kg : "";
+
+        h += `<div class="set-row${set.done ? " checked-row" : ""}">`;
+        h += `<span class="set-n">${i+1}</span>`;
+        h += `<input class="set-in${!set.kg && rec ? " has-rec" : ""}" type="number" inputmode="decimal" placeholder="${placeholder}" value="${set.kg}" onchange="upd('${ex.id}',${i},'kg',this.value)" onfocus="this.select()">`;
+        h += `<input class="set-in" type="number" inputmode="numeric" placeholder="${ex.reps}" value="${set.reps}" onchange="upd('${ex.id}',${i},'reps',this.value)" onfocus="this.select()">`;
+        h += `<span class="${rpeClass}">${rpeText}</span>`;
+        h += `<button class="chk${set.done ? " on" : ""}" onclick="chk('${ex.id}',${i})">${set.done ? "&#10003;" : ""}</button>`;
+        h += `</div>`;
+      });
+
+      // Info button
+      h += `<div style="text-align:center;padding:4px 0 2px">`;
+      h += `<button style="background:none;border:1px solid var(--border);color:var(--t2);font-size:10px;padding:4px 14px;border-radius:8px;cursor:pointer" onclick="detail('${ex.id}')">Tips & History</button>`;
+      h += `</div>`;
+
+      h += `</div></div>`;
     });
   });
 
-  if (done === 0) {
-    alert("No sets completed yet!");
-    return;
+  document.getElementById("main").innerHTML = h;
+  document.getElementById("finish").style.display = "flex";
+}
+
+// ── Actions ──
+function toggle(id) {
+  openCards[id] = !openCards[id];
+  render();
+}
+
+function upd(id, i, field, val) {
+  st[id].sets[i][field] = val;
+  save();
+}
+
+function chk(id, i) {
+  const set = st[id].sets[i];
+  set.done = !set.done;
+  if (set.done) {
+    // Auto-fill from previous set or recommendation
+    if (!set.kg && i > 0 && st[id].sets[i-1].kg) {
+      set.kg = st[id].sets[i-1].kg;
+    }
+    if (!set.kg) {
+      const ex = findEx(id);
+      if (ex) {
+        const rec = getRecommendation(id, ex);
+        if (rec) set.kg = String(rec.kg);
+      }
+    }
+  }
+  save();
+  render();
+}
+
+function findEx(id) {
+  let found = null;
+  R[day].sections.forEach(s => s.exercises.forEach(e => { if (e.id === id) found = e; }));
+  return found;
+}
+
+// ── Detail ──
+function detail(id) {
+  const ex = findEx(id);
+  if (!ex) return;
+  document.getElementById("det-title").textContent = ex.kr;
+
+  let h = "";
+  h += `<div class="d-sec"><h3>INFO</h3><table class="d-tbl">`;
+  h += `<tr><th>Sets x Reps</th><td>${ex.sets} x ${ex.reps}</td></tr>`;
+  h += `<tr><th>Rest</th><td>${ex.rest}</td></tr>`;
+  h += `<tr><th>Tempo</th><td>${ex.tempo} (down-pause-up-squeeze)</td></tr>`;
+  h += `<tr><th>RPE</th><td>${ex.rpe.join(" → ")}</td></tr>`;
+  h += `<tr><th>Progression</th><td>+${ex.inc}kg when target met</td></tr>`;
+  h += `</table></div>`;
+
+  if (ex.warmup) {
+    h += `<div class="d-sec"><h3>WARM-UP</h3><p>${ex.warmup}</p></div>`;
   }
 
-  const pct = Math.round((done / total) * 100);
+  // Recommendation
+  const rec = getRecommendation(ex.id, ex);
+  if (rec) {
+    h += `<div class="d-sec"><h3>NEXT WEIGHT</h3><div class="d-rec">`;
+    h += `<p>${rec.reason}</p>`;
+    h += `<p style="margin-top:4px;font-size:12px;opacity:.7">Recommended: ${rec.kg}kg (editable)</p>`;
+    h += `</div></div>`;
+  }
 
-  // Save to history
-  const historyKey = "history";
-  const history = JSON.parse(localStorage.getItem(historyKey) || "[]");
+  h += `<div class="d-sec"><h3>TIPS</h3><ul>`;
+  ex.tips.forEach(t => h += `<li>${t}</li>`);
+  h += `</ul></div>`;
 
-  const record = {
-    date: new Date().toISOString(),
-    day: currentDay,
-    title: routine.title,
-    completion: pct,
-    exercises: [],
-  };
+  // Previous records
+  const prev = getPrev(ex.id);
+  if (prev.length) {
+    h += `<div class="d-sec"><h3>PREVIOUS</h3><table class="d-tbl"><tr><th>Date</th><th>Sets</th></tr>`;
+    prev.forEach(r => h += `<tr><td>${r.date}</td><td>${r.sum}</td></tr>`);
+    h += `</table></div>`;
+  }
 
-  routine.sections.forEach((sec) => {
-    sec.exercises.forEach((ex) => {
-      const state = workoutState[ex.id];
-      if (state) {
-        const doneSets = state.sets.filter((s) => s.done);
-        if (doneSets.length > 0) {
-          record.exercises.push({
-            name: ex.nameKr,
-            sets: doneSets.map((s) => ({
-              kg: s.kg,
-              reps: s.reps,
-            })),
-          });
-        }
-      }
-    });
+  document.getElementById("det-body").innerHTML = h;
+  document.getElementById("det-modal").classList.remove("hide");
+}
+
+function closeDet() { document.getElementById("det-modal").classList.add("hide"); }
+
+function getPrev(id) {
+  const out = [];
+  const keys = Object.keys(localStorage).filter(k => k.startsWith(`w_${day}_`)).sort().reverse();
+  const tk = todayKey();
+  for (const k of keys) {
+    if (k === tk || out.length >= 5) break;
+    try {
+      const d = JSON.parse(localStorage.getItem(k));
+      if (!d[id]) continue;
+      const sets = d[id].sets.filter(s => s.done);
+      if (!sets.length) continue;
+      out.push({ date: k.slice(4), sum: sets.map(s => `${s.kg||"?"}x${s.reps||"?"}`).join(" / ") });
+    } catch(e) {}
+  }
+  return out;
+}
+
+// ── Finish ──
+function finish() {
+  let total = 0, done = 0;
+  const exData = [];
+  forEachEx(ex => {
+    const s = st[ex.id];
+    if (!s) return;
+    total += s.sets.length;
+    const ds = s.sets.filter(x => x.done);
+    done += ds.length;
+    if (ds.length) exData.push({ name: ex.kr, sets: ds.map(x => ({kg:x.kg, reps:x.reps})) });
   });
+  if (!done) { alert("Complete at least 1 set!"); return; }
 
-  history.unshift(record);
-  if (history.length > 100) history.pop();
-  localStorage.setItem(historyKey, JSON.stringify(history));
-
-  alert(`Day ${currentDay} Complete! (${pct}%)\n${done}/${total} sets`);
+  const pct = Math.round(done/total*100);
+  const hist = JSON.parse(localStorage.getItem("hist") || "[]");
+  hist.unshift({
+    date: new Date().toISOString(),
+    day, title: R[day].title, pct, exercises: exData
+  });
+  if (hist.length > 100) hist.pop();
+  localStorage.setItem("hist", JSON.stringify(hist));
+  alert(`Day ${day} Complete! (${pct}%)\n${done}/${total} sets`);
 }
 
 // ── History ──
 function showHistory() {
-  const modal = document.getElementById("history-modal");
-  const history = JSON.parse(localStorage.getItem("history") || "[]");
-
-  if (history.length === 0) {
-    document.getElementById("history-content").innerHTML =
-      '<div class="history-empty">No workout history yet.<br>Finish a workout to see records here.</div>';
-    modal.classList.remove("hidden");
+  const hist = JSON.parse(localStorage.getItem("hist") || "[]");
+  const el = document.getElementById("hist-body");
+  if (!hist.length) {
+    el.innerHTML = '<div class="h-empty">No records yet.</div>';
+    document.getElementById("hist-modal").classList.remove("hide");
     return;
   }
-
-  let html = "";
-  history.forEach((h, idx) => {
-    const d = new Date(h.date);
-    const dateStr = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
-    const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const dayName = dayNames[d.getDay()];
-
-    html += `<div class="history-day">`;
-    html += `<button class="history-delete" onclick="deleteHistory(${idx})">Delete</button>`;
-    html += `<div class="history-date">${dateStr} (${dayName})</div>`;
-    html += `<div class="history-type">Day ${h.day} - ${h.title} (${h.completion}%)</div>`;
-
-    h.exercises.forEach((ex) => {
-      const summary = ex.sets.map((s) => `${s.kg || "?"}x${s.reps || "?"}`).join(" / ");
-      html += `<div class="history-exercise">`;
-      html += `<span>${ex.name}</span>`;
-      html += `<span class="history-sets">${summary}</span>`;
-      html += `</div>`;
+  let h = "";
+  hist.forEach((r, i) => {
+    const d = new Date(r.date);
+    const ds = `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")}`;
+    const dn = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][d.getDay()];
+    h += `<div class="h-card">`;
+    h += `<button class="h-del" onclick="delHist(${i})">Del</button>`;
+    h += `<div class="h-date">${ds} (${dn})</div>`;
+    h += `<div class="h-type">Day ${r.day} - ${r.title} (${r.pct}%)</div>`;
+    r.exercises.forEach(ex => {
+      h += `<div class="h-ex"><span>${ex.name}</span><span class="h-sets">${ex.sets.map(s=>`${s.kg||"?"}x${s.reps||"?"}`).join(" / ")}</span></div>`;
     });
-
-    html += `</div>`;
+    h += `</div>`;
   });
-
-  document.getElementById("history-content").innerHTML = html;
-  modal.classList.remove("hidden");
+  el.innerHTML = h;
+  document.getElementById("hist-modal").classList.remove("hide");
 }
 
-function closeHistory() {
-  document.getElementById("history-modal").classList.add("hidden");
-}
+function closeHist() { document.getElementById("hist-modal").classList.add("hide"); }
 
-function deleteHistory(idx) {
-  if (!confirm("Delete this record?")) return;
-  const history = JSON.parse(localStorage.getItem("history") || "[]");
-  history.splice(idx, 1);
-  localStorage.setItem("history", JSON.stringify(history));
+function delHist(i) {
+  if (!confirm("Delete?")) return;
+  const h = JSON.parse(localStorage.getItem("hist") || "[]");
+  h.splice(i, 1);
+  localStorage.setItem("hist", JSON.stringify(h));
   showHistory();
 }
 
-// ── Service Worker ──
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js").catch(() => {});
-}
+// ── SW ──
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});

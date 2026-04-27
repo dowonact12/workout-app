@@ -1,4 +1,4 @@
-const CACHE_NAME = "leanmass-v1";
+const CACHE_NAME = "leanmass-v2";
 const ASSETS = [
   "./index.html",
   "./style.css",
