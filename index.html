@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>LEAN MASS UP</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Nav -->
+    <nav id="nav">
+      <div class="nav-title">LEAN MASS UP</div>
+      <button id="btn-history" class="nav-btn" onclick="showHistory()">&#128202;</button>
+    </nav>
+
+    <!-- Day Selector -->
+    <div id="day-selector">
+      <button class="day-tab active" data-day="A" onclick="selectDay('A')">
+        <span class="day-label">A</span>
+        <span class="day-desc">Chest+Tri</span>
+      </button>
+      <button class="day-tab" data-day="B" onclick="selectDay('B')">
+        <span class="day-label">B</span>
+        <span class="day-desc">Back+Bi</span>
+      </button>
+      <button class="day-tab" data-day="C" onclick="selectDay('C')">
+        <span class="day-label">C</span>
+        <span class="day-desc">Shoulder</span>
+      </button>
+    </div>
+
+    <!-- Workout Content -->
+    <div id="workout-content"></div>
+
+    <!-- Finish Button -->
+    <div id="finish-area" style="display:none;">
+      <button id="btn-finish" onclick="finishWorkout()">FINISH</button>
+    </div>
+
+    <!-- History Modal -->
+    <div id="history-modal" class="modal hidden">
+      <div class="modal-header">
+        <h2>History</h2>
+        <button class="modal-close" onclick="closeHistory()">&times;</button>
+      </div>
+      <div id="history-content"></div>
+    </div>
+
+    <!-- Exercise Detail Modal -->
+    <div id="detail-modal" class="modal hidden">
+      <div class="modal-header">
+        <h2 id="detail-title"></h2>
+        <button class="modal-close" onclick="closeDetail()">&times;</button>
+      </div>
+      <div id="detail-content"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
